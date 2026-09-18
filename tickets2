@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tickets</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #fff;
+      color: #222;
+    }
+
+    /* Header */
+    .app-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #333;
+      color: #fff;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+    }
+
+    .app-bar h1 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    /* Centered Alert */
+    .alert {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff4c4;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .alert-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.5rem;
+      background: #f1c40f;
+      color: #000;
+      border-radius: 50%;
+      width: 1.5rem;
+      height: 1.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      border: 1px solid #ccc;
+      margin: 1rem;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.75rem;
+      font-weight: 600;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #f5f5f5;
+    }
+
+    /* Ticket Card */
+    .ticket {
+      display: flex;
+      margin: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f9f9f9;
+    }
+
+    /* Left strip with ticket stub effect */
+    .ticket-left {
+      position: relative;
+      background: #e57373;
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transform: rotate(180deg);
+      transform-origin: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* White half-circle cutout */
+    .ticket-left::before {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .ticket-body {
+      flex: 1;
+      padding: 1rem;
+    }
+
+    /* Black rectangle container */
+    .ticket-info-box {
+      width: 75%;
+      background: #000;
+      color: #fff;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Title with image */
+    .ticket-title-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .ticket-title {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+
+    .ticket-title-container img {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .ticket-sub {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .used-time {
+      display: flex;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #444;
+      border-top: 1px solid #ddd;
+      padding-top: 0.5rem;
+    }
+
+    /* Event Details */
+    .event-details {
+      border-top: 1px solid #ddd;
+      padding: 1rem;
+    }
+
+    .event-title-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .event-title-container img {
+      width: 32px;
+      height: 32px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .event-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .event-sub {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .ticket {
+        flex-direction: row;
+      }
+
+      .ticket-info-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="app-bar">
+    <h1>Tickets</h1>
+  </header>
+
+  <div class="alert">
+    <span class="alert-icon">!</span>
+    <div>Event alert – NO RE-ENTRY</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab">Available</div>
+    <div class="tab active">4 Used</div>
+  </div>
+
+
+  <!-- TICKET 1 -->
+  <div class="ticket">
+    <div class="ticket-left">
+      ADMIT ONE<br>Football
+    </div>
+
+    <div class="ticket-body">
+
+      <div class="ticket-sub">
+        <font color="#333333">General Admission</font>
+      </div>
+
+      <div class="ticket-info-box">
+        <div class="ticket-title-container">
+
+          <div class="ticket-title">
+            Taft Charter Toreadors vs Los Angeles Romans
+          </div>
+
+          <img
+            src="https://i.postimg.cc/6Qvx2dKB/taft.jpg"
+            alt="Event Logo"
+          >
+
+        </div>
+
+        <div class="ticket-sub">
+          Thu, Sep 3, 2026 at 7:00 PM
+        </div>
+      </div>
+
+      <div class="used-time">
+        ✅ Used:&nbsp;<span class="access-time"></span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- TICKET 2 -->
+  <div class="ticket">
+    <div class="ticket-left">
+      ADMIT ONE<br>Football
+    </div>
+
+    <div class="ticket-body">
+
+      <div class="ticket-sub">
+        <font color="#333333">General Admission</font>
+      </div>
+
+      <div class="ticket-info-box">
+        <div class="ticket-title-container">
+
+          <div class="ticket-title">
+            Taft Charter Toreadors vs Los Angeles Romans
+          </div>
+
+          <img
+            src="https://i.postimg.cc/6Qvx2dKB/taft.jpg"
+            alt="Event Logo"
+          >
+
+        </div>
+
+        <div class="ticket-sub">
+          Thu, Sep 3, 2026 at 7:00 PM
+        </div>
+      </div>
+
+      <div class="used-time">
+        ✅ Used:&nbsp;<span class="access-time"></span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- TICKET 3 -->
+  <div class="ticket">
+    <div class="ticket-left">
+      ADMIT ONE<br>Football
+    </div>
+
+    <div class="ticket-body">
+
+      <div class="ticket-sub">
+        <font color="#333333">
+          Student (5+) and Senior Citizen (60+)
+        </font>
+      </div>
+
+      <div class="ticket-info-box">
+        <div class="ticket-title-container">
+
+          <div class="ticket-title">
+            Taft Charter Toreadors vs Los Angeles Romans
+          </div>
+
+          <img
+            src="https://i.postimg.cc/6Qvx2dKB/taft.jpg"
+            alt="Event Logo"
+          >
+
+        </div>
+
+        <div class="ticket-sub">
+          Thu, Sep 3, 2026 at 7:00 PM
+        </div>
+      </div>
+
+      <div class="used-time">
+        ✅ Used:&nbsp;<span class="access-time"></span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- TICKET 4 -->
+  <div class="ticket">
+    <div class="ticket-left">
+      ADMIT ONE<br>Football
+    </div>
+
+    <div class="ticket-body">
+
+      <div class="ticket-sub">
+        <font color="#333333">
+          Student (5+) and Senior Citizen (60+)
+        </font>
+      </div>
+
+      <div class="ticket-info-box">
+        <div class="ticket-title-container">
+
+          <div class="ticket-title">
+            Taft Charter Toreadors vs Los Angeles Romans
+          </div>
+
+          <img
+            src="https://i.postimg.cc/6Qvx2dKB/taft.jpg"
+            alt="Event Logo"
+          >
+
+        </div>
+
+        <div class="ticket-sub">
+          Thu, Sep 3, 2026 at 4:00 PM
+        </div>
+      </div>
+
+      <div class="used-time">
+        ✅ Used:&nbsp;<span class="access-time"></span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Event Details -->
+  <div class="event-details">
+
+    <div class="event-title-container">
+
+      <img
+        src="https://i.postimg.cc/6Qvx2dKB/taft.jpg"
+        alt="Event Logo"
+      >
+
+      <div class="event-title">
+        Taft Charter Toreadors vs Los Angeles Romans
+      </div>
+
+    </div>
+
+    <div class="event-sub">
+      Football – Boy Varsity
+    </div>
+
+    <div class="event-sub">
+      Sep 3, 2026
+    </div>
+
+  </div>
+
+
+  <!-- Automatically set the Used date/time -->
+  <script>
+    const accessTime = new Date();
+
+    const formattedTime = accessTime.toLocaleString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
+    });
+
+    document.querySelectorAll(".access-time").forEach(function(element) {
+      element.textContent = formattedTime;
+    });
+  </script>
+
+</body>
+</html>
